@@ -20,9 +20,6 @@ class ToDoApp(QWidget):
         self.priority_input = QComboBox(self)
         self.priority_input.addItems(["Low", "Medium", "High"])
         
-        self.duration_input = QSpinBox(self)
-        self.duration_input.setRange(1, 24)  
-        
         self.completed_checkbox = QCheckBox("Completed", self)
         
         self.add_button = QPushButton("Add Task", self)
@@ -46,8 +43,6 @@ class ToDoApp(QWidget):
         task_layout.addWidget(self.task_input)
         task_layout.addWidget(QLabel("Priority:"))
         task_layout.addWidget(self.priority_input)
-        task_layout.addWidget(QLabel("Duration (hours):"))
-        task_layout.addWidget(self.duration_input)
         task_layout.addWidget(self.completed_checkbox)
         task_layout.addWidget(self.add_button)
         task_layout.addWidget(self.remove_button)
@@ -78,16 +73,14 @@ class ToDoApp(QWidget):
             return
         
         priority = self.priority_input.currentText()
-        duration = self.duration_input.value()
         completed = "Completed" if self.completed_checkbox.isChecked() else "Pending"
         
-        task_details = f"{task_name} | Priority: {priority} | Duration: {duration} hours | Status: {completed}"
+        task_details = f"{task_name} | Priority: {priority} | Status: {completed}"
         
         self.task_list.addItem(task_details)
         
         self.task_input.clear()
         self.priority_input.setCurrentIndex(0)
-        self.duration_input.setValue(1)
         self.completed_checkbox.setChecked(False)
 
     def remove_task(self):
